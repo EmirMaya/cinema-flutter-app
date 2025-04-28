@@ -34,7 +34,7 @@ class _MoviesHorizontalListviewState extends State<MoviesHorizontalListview> {
 
       if ((scrollController.position.pixels + 200) >=
           scrollController.position.maxScrollExtent) {
-            print('load next movies');
+            // print('load next movies');
             widget.loadNextPage!();
       }
     });
@@ -52,7 +52,7 @@ class _MoviesHorizontalListviewState extends State<MoviesHorizontalListview> {
       height: 350,
       child: Column(
         children: [
-          
+
           if (widget.title != null || widget.subtitle != null)
             _Title(
               title: widget.title,
