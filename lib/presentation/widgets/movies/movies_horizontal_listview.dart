@@ -3,7 +3,7 @@ import 'package:cinemapedia/config/helpers/human_formats.dart';
 import 'package:cinemapedia/domain/entities/movies.dart';
 import 'package:flutter/material.dart';
 
-class MoviesHorizontalListview extends StatelessWidget {
+class MoviesHorizontalListview extends StatefulWidget {
   final List<Movie> movies;
   final String? title;
   final String? subtitle;
@@ -17,23 +17,54 @@ class MoviesHorizontalListview extends StatelessWidget {
       this.loadNextPage});
 
   @override
+  State<MoviesHorizontalListview> createState() =>
+      _MoviesHorizontalListviewState();
+}
+
+class _MoviesHorizontalListviewState extends State<MoviesHorizontalListview> {
+  final scrollController = ScrollController();
+
+  @override
+  void initState() {
+
+    super.initState();
+
+    scrollController.addListener(() {
+      if (widget.loadNextPage == null) return;
+
+      if ((scrollController.position.pixels + 200) >=
+          scrollController.position.maxScrollExtent) {
+            print('load next movies');
+            widget.loadNextPage!();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 350,
       child: Column(
         children: [
-          if (title != null || subtitle != null)
+          
+          if (widget.title != null || widget.subtitle != null)
             _Title(
-              title: title,
-              subtitle: subtitle,
+              title: widget.title,
+              subtitle: widget.subtitle,
             ),
           Expanded(
             child: ListView.builder(
-                itemCount: movies.length,
+                itemCount: widget.movies.length,
                 scrollDirection: Axis.horizontal,
                 physics: const BouncingScrollPhysics(),
                 itemBuilder: (context, index) {
-                  return _Slide(movie: movies[index]);
+                  return _Slide(movie: widget.movies[index]);
                 }),
           )
         ],
@@ -49,7 +80,6 @@ class _Slide extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final textStyle = Theme.of(context).textTheme;
 
     return Container(
@@ -80,7 +110,9 @@ class _Slide extends StatelessWidget {
           ),
         ),
 
-        const SizedBox(height: 5,),
+        const SizedBox(
+          height: 5,
+        ),
 
         //* Title
         SizedBox(
@@ -92,17 +124,27 @@ class _Slide extends StatelessWidget {
           ),
         ),
 
-        //* Raiting  
+        //* Raiting
         SizedBox(
           width: 150,
           child: Row(
             children: [
-              Icon(Icons.star_half_outlined, color: Colors.yellow.shade700,),
-              const SizedBox(width: 3,),
-              Text('${movie.voteAverage}', style: textStyle.bodyMedium?.copyWith(color: Colors.yellow.shade900),),
+              Icon(
+                Icons.star_half_outlined,
+                color: Colors.yellow.shade700,
+              ),
+              const SizedBox(
+                width: 3,
+              ),
+              Text(
+                '${movie.voteAverage}',
+                style: textStyle.bodyMedium
+                    ?.copyWith(color: Colors.yellow.shade900),
+              ),
               const Spacer(),
-              Text(HumanFormats.number(movie.popularity), style: textStyle.bodySmall?.copyWith(color: Colors.grey.shade800)),
-   
+              Text(HumanFormats.number(movie.popularity),
+                  style: textStyle.bodySmall
+                      ?.copyWith(color: Colors.grey.shade800)),
             ],
           ),
         )
