@@ -31,14 +31,17 @@ class _HomeViewState extends ConsumerState<_HomeView> {
 
     ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
     ref.read(popularMoviesProvider.notifier).loadNextPage();
+    ref.read(upcomingMoviesProvider.notifier).loadNextPage();
+    ref.read(topRatedMoviesProvider.notifier).loadNextPage();
   }
 
   @override
   Widget build(BuildContext context) {
     final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
-
     final moviesSlide = ref.watch(moviesSlideshowProvider);
     final popularMovies = ref.watch(popularMoviesProvider);
+    final upcomingMovies = ref.watch(upcomingMoviesProvider);
+    final topRatedMovies = ref.watch(topRatedMoviesProvider);
 
     if (moviesSlide.isEmpty) return const CircularProgressIndicator();
 
@@ -48,6 +51,7 @@ class _HomeViewState extends ConsumerState<_HomeView> {
           floating: true,
           flexibleSpace: FlexibleSpaceBar(
             title: CustomAppbar(),
+            titlePadding: EdgeInsets.only(left: 0, bottom: 16),
           ),
         ),
         SliverList(
@@ -72,7 +76,25 @@ class _HomeViewState extends ConsumerState<_HomeView> {
                   loadNextPage: () {
                     ref.read(popularMoviesProvider.notifier).loadNextPage();
                   },
-                )
+                ),
+
+                MoviesHorizontalListview(
+                  movies: upcomingMovies,
+                  title: 'Upcoming',
+                  subtitle: 'Este mes',
+                  loadNextPage: () {
+                    ref.read(upcomingMoviesProvider.notifier).loadNextPage();
+                  },
+                ),
+                MoviesHorizontalListview(
+                  movies: topRatedMovies,
+                  title: 'Top',
+                  subtitle: 'Mejores valoradas',
+                  loadNextPage: () {
+                    ref.read(topRatedMoviesProvider.notifier).loadNextPage();
+                  },
+                ),
+                const SizedBox(height: 40),
               ],
             );
           },
