@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:cinemapedia/config/helpers/human_formats.dart';
 import 'package:cinemapedia/domain/entities/movies.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class MoviesHorizontalListview extends StatefulWidget {
   final List<Movie> movies;
@@ -26,7 +27,6 @@ class _MoviesHorizontalListviewState extends State<MoviesHorizontalListview> {
 
   @override
   void initState() {
-
     super.initState();
 
     scrollController.addListener(() {
@@ -34,8 +34,8 @@ class _MoviesHorizontalListviewState extends State<MoviesHorizontalListview> {
 
       if ((scrollController.position.pixels + 200) >=
           scrollController.position.maxScrollExtent) {
-            // print('load next movies');
-            widget.loadNextPage!();
+        // print('load next movies');
+        widget.loadNextPage!();
       }
     });
   }
@@ -52,7 +52,6 @@ class _MoviesHorizontalListviewState extends State<MoviesHorizontalListview> {
       height: 350,
       child: Column(
         children: [
-
           if (widget.title != null || widget.subtitle != null)
             _Title(
               title: widget.title,
@@ -64,7 +63,8 @@ class _MoviesHorizontalListviewState extends State<MoviesHorizontalListview> {
                 scrollDirection: Axis.horizontal,
                 physics: const BouncingScrollPhysics(),
                 itemBuilder: (context, index) {
-                  return FadeInRight(child: _Slide(movie: widget.movies[index]));
+                  return FadeInRight(
+                      child: _Slide(movie: widget.movies[index]));
                 }),
           )
         ],
@@ -104,7 +104,10 @@ class _Slide extends StatelessWidget {
                     ),
                   );
                 }
-                return FadeIn(child: child);
+                return GestureDetector(
+                  onTap: () => context.push('/movie/${movie.id}'),
+                  child:  FadeIn(child: child),
+                );
               },
             ),
           ),
