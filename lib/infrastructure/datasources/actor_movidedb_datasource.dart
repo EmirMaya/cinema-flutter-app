@@ -5,7 +5,7 @@ import 'package:cinemapedia/infrastructure/mappers/actor_mapper.dart';
 import 'package:cinemapedia/infrastructure/models/moviedb/credits_response.dart';
 import 'package:dio/dio.dart';
 
-class ActorMovidedbDatasource extends ActorsDatasource {
+class ActorMovideDbDatasource extends ActorsDatasource {
   final dio = Dio(BaseOptions(
       baseUrl: 'https://api.themoviedb.org/3',
       queryParameters: {
@@ -22,6 +22,6 @@ class ActorMovidedbDatasource extends ActorsDatasource {
         .map((cast) => ActorMapper.castToEntity(cast))
         .toList();
 
-    return [];
+    return actors;
   }
 }
