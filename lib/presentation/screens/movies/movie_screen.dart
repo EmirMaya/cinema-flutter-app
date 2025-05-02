@@ -82,7 +82,7 @@ class _MovieDetails extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(movie.title, style: textStyles.titleLarge),
-                    Text(movie.overview),
+                    Text(movie.overview, style: TextStyle(color: Colors.black87)),
                   ],
                 ),
               )
@@ -103,7 +103,7 @@ class _MovieDetails extends StatelessWidget {
             ],
           ),
         ),
-        const SizedBox( height: 100),
+        const SizedBox( height: 300),
 
 
       ],
