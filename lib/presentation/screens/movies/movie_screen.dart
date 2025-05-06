@@ -71,11 +71,14 @@ class _MovieDetails extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Image.network(
-                  movie.posterPath,
-                  width: size.width * 0.3,
+              Padding(
+                padding: const EdgeInsets.only(top: 47),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image.network(
+                    movie.posterPath,
+                    width: size.width * 0.30,
+                  ),
                 ),
               ),
               const SizedBox(
@@ -84,14 +87,23 @@ class _MovieDetails extends StatelessWidget {
               SizedBox(
                 width: (size.width - 40) * 0.7,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
-                      child: Text(movie.title, style: textStyles.titleLarge ),
+                      child: Text(movie.title, style: textStyles.titleLarge),
                     ),
-                    Text(movie.overview,
-                        style: const TextStyle(color: Colors.black54)),
+                    Container(
+                      decoration: BoxDecoration(
+                          color: Colors.black54,
+                          borderRadius: BorderRadius.circular(20)),
+
+                      padding: const EdgeInsets.all(
+                          8.0), // opcional: agrega espacio interno
+                      child: Text(
+                        movie.overview,
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ),
                   ],
                 ),
               )
@@ -161,7 +173,11 @@ class _ActorsByMovie extends ConsumerWidget {
                     ),
                   ),
                   const SizedBox(height: 5),
-                  Text(actor.name, maxLines: 2, style: const TextStyle(fontWeight: FontWeight.bold),),
+                  Text(
+                    actor.name,
+                    maxLines: 2,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
                   Text(
                     actor.character ?? '',
                     maxLines: 2,
