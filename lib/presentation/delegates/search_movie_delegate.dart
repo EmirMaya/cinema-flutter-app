@@ -74,7 +74,20 @@ class _MovieItem extends StatelessWidget {
                   loadingBuilder: (context, child, loadingProgress) => FadeIn(child: child)),  
                 ),
               ),
-            )
+
+              const SizedBox(width: 10,),
+              SizedBox(
+                width: size.width * 0.7,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(movie.title, style: textStyles.titleMedium,),
+                    (movie.overview.length > 100)
+                    ? Text('${movie.overview.substring(0,100)}...')
+                    : Text(movie.overview)
+                  ],
+                ),
+              )
           ],
         ),
       );
