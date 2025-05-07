@@ -167,18 +167,31 @@ class _Title extends StatelessWidget {
   Widget build(BuildContext context) {
     final titleStyle = Theme.of(context).textTheme.titleLarge;
     return Container(
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: Colors.black54,
+          width: 1,
+        ),
+        borderRadius: BorderRadius.circular(20),
+      ),
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       child: Row(
         children: [
           if (title != null)
-            Text(
-              title!,
-              style: titleStyle,
+            Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: Text(
+                title!,
+                style: titleStyle,
+              ),
             ),
           const Spacer(),
           if (subtitle != null)
             FilledButton.tonal(
-              style: const ButtonStyle(visualDensity: VisualDensity.compact),
+              style:  ButtonStyle(
+                visualDensity: VisualDensity.compact,
+                backgroundColor: WidgetStateProperty.all(Colors.transparent),
+              ),
               onPressed: () {},
               child: Text(subtitle!),
             )
