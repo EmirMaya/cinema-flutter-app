@@ -44,11 +44,21 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
           return ListView.builder(
             itemCount: movies.length,
             itemBuilder: (context, index) {
-
               final movie = movies[index];
               return ListTile(title: Text(movie.title));
             },
           );
         });
+  }
+}
+
+class _MovieItem extends StatelessWidget {
+  final Movie movie;
+
+  const _MovieItem({required this.movie});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
   }
 }
