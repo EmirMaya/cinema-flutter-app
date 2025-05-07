@@ -44,8 +44,7 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
           return ListView.builder(
             itemCount: movies.length,
             itemBuilder: (context, index) {
-              final movie = movies[index];
-              return ListTile(title: Text(movie.title));
+              return _MovieItem(movie: movies[index]);
             },
           );
         });
@@ -59,6 +58,25 @@ class _MovieItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    final textStyles = Theme.of(context).textTheme;
+    final size = MediaQuery.of(context).size;
+    return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5), 
+        child: Row(
+          children: [
+            // image
+            SizedBox(
+              width: size.width * 0.2,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Image.network(
+                  movie.posterPath,
+                  loadingBuilder: (context, child, loadingProgress) => FadeIn(child: child)),  
+                ),
+              ),
+            )
+          ],
+        ),
+      );
   }
 }
