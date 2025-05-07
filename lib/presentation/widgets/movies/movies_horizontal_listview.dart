@@ -106,7 +106,7 @@ class _Slide extends StatelessWidget {
                 }
                 return GestureDetector(
                   onTap: () => context.push('/movie/${movie.id}'),
-                  child:  FadeIn(child: child),
+                  child: FadeIn(child: child),
                 );
               },
             ),
@@ -122,7 +122,8 @@ class _Slide extends StatelessWidget {
           width: 150,
           child: Text(
             movie.title,
-            maxLines: 2,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
             style: textStyle.titleSmall,
           ),
         ),
