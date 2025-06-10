@@ -1,3 +1,3 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final searchQueryProvider = StateProvider((ref) => null);
+final searchQueryProvider = StateProvider((ref) => '');
