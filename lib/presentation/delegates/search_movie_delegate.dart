@@ -101,12 +101,12 @@ class _MovieItem extends StatelessWidget {
         onMovieSelected(context, movie);
       },
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         child: Row(
           children: [
             // image
             SizedBox(
-              width: size.width * 0.2,
+              width: size.width * 0.4,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: Image.network(movie.posterPath,
