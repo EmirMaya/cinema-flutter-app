@@ -59,10 +59,9 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
         icon: const Icon(Icons.arrow_back_ios_new_outlined));
   }
 
-  @override
-  Widget buildResults(BuildContext context) {
+  Widget buildResultsAndSuggestions() {
     return StreamBuilder(
-      initialData: initialMovies,
+        initialData: initialMovies,
         stream: debouncedMovies.stream,
         builder: (context, snapshot) {
           final movies = snapshot.data ?? [];
@@ -82,27 +81,15 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
   }
 
   @override
+  Widget buildResults(BuildContext context) {
+    return buildResultsAndSuggestions();
+  }
+
+  @override
   Widget buildSuggestions(BuildContext context) {
     _onQueryChanged(query);
-    return StreamBuilder(
-        // future: searchMovies(query),
-        initialData: initialMovies,
-        stream: debouncedMovies.stream,
-        builder: (context, snapshot) {
-          final movies = snapshot.data ?? [];
-          return ListView.builder(
-            itemCount: movies.length,
-            itemBuilder: (context, index) {
-              return _MovieItem(
-                movie: movies[index],
-                onMovieSelected: (context, movie) {
-                  clearStreams();
-                  close(context, movie);
-                },
-              );
-            },
-          );
-        });
+
+    return buildResultsAndSuggestions();
   }
 }
 
